@@ -29,9 +29,6 @@ define('APPSIDE_ASSETS',APPSIDE_THEME_ROOT_URL.'/assets');
 if (file_exists(APPSIDE_INC .'/class-appside-init.php')){
 	require_once APPSIDE_INC .'/class-appside-init.php';
 }
-if (file_exists(APPSIDE_INC .'/class-appside.php')){
-	require_once APPSIDE_INC .'/class-appside.php';
-}
 /**
  * Codester Framework Functions
  * @since 1.0.0
