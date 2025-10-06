@@ -44,7 +44,7 @@ if (!class_exists('Appside_Menu_Item_Custom_Fields')){
 				// Sanitize
 				if ( ! empty( $_POST[ $key ][ $menu_item_db_id ] ) ) {
 					// Do some checks here...
-					$value = $_POST[ $key ][ $menu_item_db_id ];
+					$value = sanitize_text_field($_POST[ $key ][ $menu_item_db_id ]);
 				} else {
 					$value = null;
 				}

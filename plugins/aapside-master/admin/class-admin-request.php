@@ -34,8 +34,8 @@ if (!class_exists('Appside_Admin_Request')){
 		 * @since 2.0.0
 		 * */
 		public function license_verify(){
-			if (isset($_POST['appside_license_verify']) && wp_verify_nonce($_POST['appside_license_verify'],'appside_license_verify')){
-				return;
+			if (!isset($_POST['appside_license_verify']) || !wp_verify_nonce($_POST['appside_license_verify'],'appside_license_verify')){
+				wp_die('Security check failed');
 			}
 
 			$endpoint = 'https://irtech.biz/api/license/new';
@@ -43,7 +43,7 @@ if (!class_exists('Appside_Admin_Request')){
 			$response = wp_remote_post($endpoint,array(
 				'sslverify' => false,
 				'body' => [
-					'purchase_code' => trim($_POST['appside_purchase_code']),
+					'purchase_code' => isset($_POST['appside_purchase_code']) ? sanitize_text_field(trim($_POST['appside_purchase_code'])) : '',
 					'site_url' => home_url('/'),
 					'item_unique_key' => $secret_code
 				]
@@ -51,7 +51,7 @@ if (!class_exists('Appside_Admin_Request')){
 			if (!is_wp_error($response)){ 
 
 				$licnese_response = json_decode($response['body']);
-				update_option('appside_purchase_code',trim($_POST['appside_purchase_code']));
+				update_option('appside_purchase_code', isset($_POST['appside_purchase_code']) ? sanitize_text_field(trim($_POST['appside_purchase_code'])) : '');
 				update_option('appside_secret_code',$secret_code);
 				update_option('appside_license_status',$licnese_response->license_status);
 				update_option('appside_license_msg',$licnese_response->msg);

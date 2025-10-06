@@ -146,7 +146,7 @@ if ( !class_exists('Appside_Admin_Menu') ){
 			if ( !is_admin() ){
 				return;
 			}
-			$current_post_type = isset($_GET['post_type']) ? $_GET['post_type'] : '';
+			$current_post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '';
 			$pages_type = ['portfolio'];
 			$pages_type = json_encode($pages_type);
 			?>

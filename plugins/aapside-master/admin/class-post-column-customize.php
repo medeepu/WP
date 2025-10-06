@@ -39,7 +39,7 @@ if (!class_exists('appside_Post_Column_Customize')){
 		 * */
 		public function edit_portfolio_columns($columns){
 
-			$order = ( 'asc' == $_GET['order'] ) ? 'desc' : 'asc';
+			$order = ( isset($_GET['order']) && 'asc' == sanitize_text_field($_GET['order']) ) ? 'desc' : 'asc';
 			$cat_title = $columns['taxonomy-portfolio-cat'];
 			unset($columns);
 			$columns['cb'] = '<input type="checkbox" />';
